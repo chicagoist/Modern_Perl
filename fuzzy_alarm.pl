@@ -37,3 +37,8 @@ say $fuzzy_alarm->sound for 1 .. 3;
 $fuzzy_alarm->sound("HURA!!!");
 say $fuzzy_alarm->sound;
 
+my $fat = Cat->new( name => 'Fatty', birth_year => 2007, diet => 'Sea Treats');
+say $fat->name, ' eats ', $fat->diet;
+$fat->diet( 'Low Sodium Kitty Lo Mein' );
+say 'Age of ',$fat->name,' is ',$fat->age(8), ' years old';
+say $fat->name, ' now eats ', $fat->diet;
