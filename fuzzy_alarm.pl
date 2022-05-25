@@ -40,5 +40,11 @@ say $fuzzy_alarm->sound;
 my $fat = Cat->new( name => 'Fatty', birth_year => 2007, diet => 'Sea Treats');
 say $fat->name, ' eats ', $fat->diet;
 $fat->diet( 'Low Sodium Kitty Lo Mein' );
-say 'Age of ',$fat->name,' is ',$fat->age(8), ' years old';
+say 'Age of ',$fat->name,' is ',$fat->age, ' years old';
 say $fat->name, ' now eats ', $fat->diet;
+$fat->show_vital_stats;
+
+my $fluffy = Cat->new;
+my $cheese = Cat->new;
+say 'Alive!' if $fluffy->DOES( 'LivingBeing' );
+say 'Cat Alive!' if $fluffy->DOES( 'Cat' );
