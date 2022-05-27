@@ -42,6 +42,11 @@ package CalculateAge::From::BirthYear {
         return $years_now;
     }
 
+    sub module_loaded {
+        (my $modname = shift) =~ s!::!/!g;
+        return exists $INC{ $modname . '.pm' };
+    }
+
 
 
 }

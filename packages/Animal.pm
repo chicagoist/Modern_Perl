@@ -1,5 +1,7 @@
-package LightSource::Cranky {
+package Animal {
     use v5.10;
+    use FindBin qw($Bin);
+    use lib "$Bin";# в подкаталоге
     our $VERSION = '0.01';
     # use CGI;
     # use POSIX;
@@ -23,33 +25,28 @@ package LightSource::Cranky {
     use YAML;
     use DDP;
 
-    use Class::Load ':all';
-    use Carp 'carp';
-    use Moose;
-    extends 'LightSource';
+    #use Moose;
+    use Moose::Role;
+    use Moose::Util::TypeConstraints;
     use namespace::autoclean;
 
-    override light => sub {
+    requires qw(sound default_color);
+
+    enum 'ColorStr' => [qw( white brown black grey spotted)];
+
+    has 'name' => (is => 'rw');
+    has 'color' => (
+        is => 'rw',
+        isa => 'ColorStr',
+        default => sub { shift->default_color }
+    );
+
+
+
+    sub speak {
         my $self = shift;
-        carp "Can't light a lit LightSource!" if $self->enabled;
-        super();
-    };
-
-    override extinguish => sub {
-        my $self = shift;
-        carp "Can't extinguish unlit LightSource!" unless $self->enabled;
-        super();
-    };
-
-
-
-    sub class_loaded {
-       my $self = shift;
-
-        return $self if   is_class_loaded($self);
+        print $self->name, " goes ", $self->sound, "\n";
     }
 
-
-    __PACKAGE__->meta->make_immutable;
-}
+    }
 1;

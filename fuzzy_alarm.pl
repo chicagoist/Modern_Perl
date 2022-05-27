@@ -68,4 +68,13 @@ my $crankycandle = LightSource::Cranky->new(enabled => 1);
 say $crankycandle->extinguish;
 say $crankycandle->light;
 
+foreach my $key (keys %INC) {
+    say $key," = ", $INC{$key};
+}
+say 666;
 
+say $crankycandle->class_loaded;
+my $pkg = 'CalculateAge::From::BirthYear';
+say "$pkg exists" if eval { $pkg->can( 'can' ) };
+say "Cat exists" if eval { Cat->new };
+say "age() exists" if $pkg->can( 'age' );

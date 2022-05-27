@@ -1,5 +1,7 @@
-package LightSource::Cranky {
+package Cow {
     use v5.10;
+    use FindBin qw($Bin);
+    use lib "$Bin";# в подкаталоге
     our $VERSION = '0.01';
     # use CGI;
     # use POSIX;
@@ -23,32 +25,12 @@ package LightSource::Cranky {
     use YAML;
     use DDP;
 
-    use Class::Load ':all';
-    use Carp 'carp';
     use Moose;
-    extends 'LightSource';
     use namespace::autoclean;
 
-    override light => sub {
-        my $self = shift;
-        carp "Can't light a lit LightSource!" if $self->enabled;
-        super();
-    };
-
-    override extinguish => sub {
-        my $self = shift;
-        carp "Can't extinguish unlit LightSource!" unless $self->enabled;
-        super();
-    };
-
-
-
-    sub class_loaded {
-       my $self = shift;
-
-        return $self if   is_class_loaded($self);
-    }
-
+    with 'Animal';
+    sub default_color { 'spotted' }
+    sub sound { 'moooooo' }
 
     __PACKAGE__->meta->make_immutable;
 }
