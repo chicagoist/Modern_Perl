@@ -1,4 +1,4 @@
-package Cat {
+package LightSource::Cranky {
     use v5.10;
     our $VERSION = '0.01';
     # use CGI;
@@ -23,38 +23,23 @@ package Cat {
     use YAML;
     use DDP;
 
+    use Carp 'carp';
     use Moose;
+    extends 'LightSource';
     use namespace::autoclean;
 
-
-    has 'name', is => 'ro', isa => 'Str';
-
-    #has 'age', is => 'ro', isa => 'Int';
-    has 'diet', is => 'rw';
-
-
-
-
-    sub meow {
+    override light => sub {
         my $self = shift;
-        say 'Meow!';
-    }
+        carp "Can't light a lit LightSource!" if $self->enabled;
+        super();
+    };
 
-    has 'sound' => (is => 'rw', default => sub {
+    override extinguish => sub {
         my $self = shift;
-        return 'MEOW!';
-    });
+        carp "Can't extinguish unlit LightSource!" unless $self->enabled;
+        super();
+    };
 
-    sub show_vital_stats {
-        my $object = shift;
-        say 'My name is ', $object->name;
-        say 'I am ', $object->age;
-        say 'I eat ', $object->diet;
-    }
-
-
-    with  'CalculateAge::From::BirthYear', 'LivingBeing';
     __PACKAGE__->meta->make_immutable;
 }
-
 1;

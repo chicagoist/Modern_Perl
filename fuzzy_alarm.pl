@@ -29,6 +29,9 @@ use YAML;
 use DDP;
 
 use Cat;
+use SuperCandle;
+use Glowstick;
+use LightSource::Cranky;
 
 my $fuzzy_alarm = Cat->new;
 $fuzzy_alarm->meow for 1 .. 3;
@@ -37,10 +40,10 @@ say $fuzzy_alarm->sound for 1 .. 3;
 $fuzzy_alarm->sound("HURA!!!");
 say $fuzzy_alarm->sound;
 
-my $fat = Cat->new( name => 'Fatty', birth_year => 2007, diet => 'Sea Treats');
+my $fat = Cat->new( name => 'Fatty', birth_year => 2007, diet => 'Sea Treats', age => 8);
 say $fat->name, ' eats ', $fat->diet;
 $fat->diet( 'Low Sodium Kitty Lo Mein' );
-say 'Age of ',$fat->name,' is ',$fat->age, ' years old';
+say 'Age of ',$fat->name,' is ',$fat->age(9), ' years old';
 say $fat->name, ' now eats ', $fat->diet;
 $fat->show_vital_stats;
 
@@ -48,3 +51,21 @@ my $fluffy = Cat->new;
 my $cheese = Cat->new;
 say 'Alive!' if $fluffy->DOES( 'LivingBeing' );
 say 'Cat Alive!' if $fluffy->DOES( 'Cat' );
+
+my $supercandle = SuperCandle->new;
+my $lightcandle = LightSource->new;
+say $supercandle->candle_power;
+say $lightcandle->candle_power;
+say $lightcandle->light;
+say $lightcandle->enabled;
+say $lightcandle->extinguish;
+say $lightcandle->light;
+my $glowcandle = Glowstick->new;
+say $glowcandle->extinguish;
+my $crankycandle = LightSource::Cranky->new(enabled => 1);
+#say $crankycandle->candle_power;
+#say $crankycandle->extinguish;
+say $crankycandle->extinguish;
+say $crankycandle->light;
+
+

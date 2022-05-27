@@ -1,4 +1,4 @@
-package Cat {
+package SuperCandle {
     use v5.10;
     our $VERSION = '0.01';
     # use CGI;
@@ -26,35 +26,10 @@ package Cat {
     use Moose;
     use namespace::autoclean;
 
-
-    has 'name', is => 'ro', isa => 'Str';
-
-    #has 'age', is => 'ro', isa => 'Int';
-    has 'diet', is => 'rw';
+    extends 'LightSource';
+    has '+candle_power', default => 100;
 
 
-
-
-    sub meow {
-        my $self = shift;
-        say 'Meow!';
-    }
-
-    has 'sound' => (is => 'rw', default => sub {
-        my $self = shift;
-        return 'MEOW!';
-    });
-
-    sub show_vital_stats {
-        my $object = shift;
-        say 'My name is ', $object->name;
-        say 'I am ', $object->age;
-        say 'I eat ', $object->diet;
-    }
-
-
-    with  'CalculateAge::From::BirthYear', 'LivingBeing';
     __PACKAGE__->meta->make_immutable;
 }
-
 1;

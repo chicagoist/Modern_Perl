@@ -1,4 +1,4 @@
-package Cat {
+package LightSource {
     use v5.10;
     our $VERSION = '0.01';
     # use CGI;
@@ -26,35 +26,27 @@ package Cat {
     use Moose;
     use namespace::autoclean;
 
+    has 'candle_power', is      => 'ro',
+        isa     => 'Int',
+        default => 1;
 
-    has 'name', is => 'ro', isa => 'Str';
+    has 'enabled', is      => 'ro',
+        isa     => 'Bool',
+        default => 0,
+        writer  => '_set_enabled';
 
-    #has 'age', is => 'ro', isa => 'Int';
-    has 'diet', is => 'rw';
-
-
-
-
-    sub meow {
+    sub light
+    {
         my $self = shift;
-        say 'Meow!';
+        $self->_set_enabled( 1 );
     }
 
-    has 'sound' => (is => 'rw', default => sub {
+    sub extinguish
+    {
         my $self = shift;
-        return 'MEOW!';
-    });
-
-    sub show_vital_stats {
-        my $object = shift;
-        say 'My name is ', $object->name;
-        say 'I am ', $object->age;
-        say 'I eat ', $object->diet;
+        $self->_set_enabled( 0 );
     }
 
-
-    with  'CalculateAge::From::BirthYear', 'LivingBeing';
     __PACKAGE__->meta->make_immutable;
 }
-
 1;

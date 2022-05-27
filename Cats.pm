@@ -1,4 +1,4 @@
-package Cat {
+package Cats {
     use v5.10;
     our $VERSION = '0.01';
     # use CGI;
@@ -23,38 +23,26 @@ package Cat {
     use YAML;
     use DDP;
 
-    use Moose;
-    use namespace::autoclean;
 
+    use MooseX::Declare;
+    role LivingBeing { requires qw(name age diet) };
 
-    has 'name', is => 'ro', isa => 'Str';
+        role CalculateAge::From::BirthYear {
+            has 'birth_year',
+                is      => 'ro',
+                isa     => 'Int',
+                default => sub { (localtime)[5] + 1900 };
 
-    #has 'age', is => 'ro', isa => 'Int';
-    has 'diet', is => 'rw';
+            method age {
+                return (localtime)[5] + 1900 - $self->birth_year;
+            }
+        }
 
-
-
-
-    sub meow {
-        my $self = shift;
-        say 'Meow!';
+            class Cat with LivingBeing with CalculateAge::From::BirthYear {
+        has 'name',is  => 'ro',isa => 'Str';
+        has 'diet',is => 'rw';
     }
 
-    has 'sound' => (is => 'rw', default => sub {
-        my $self = shift;
-        return 'MEOW!';
-    });
-
-    sub show_vital_stats {
-        my $object = shift;
-        say 'My name is ', $object->name;
-        say 'I am ', $object->age;
-        say 'I eat ', $object->diet;
-    }
-
-
-    with  'CalculateAge::From::BirthYear', 'LivingBeing';
     __PACKAGE__->meta->make_immutable;
 }
-
 1;

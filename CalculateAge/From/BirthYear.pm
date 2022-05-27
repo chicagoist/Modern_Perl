@@ -24,6 +24,8 @@ package CalculateAge::From::BirthYear {
     use DDP;
 
     use Moose::Role;
+    state $years_now;
+
 
     has 'birth_year'=> (
         is => 'ro',
@@ -36,8 +38,10 @@ package CalculateAge::From::BirthYear {
         my $years_old = shift;
         my $year = (localtime)[5] + 1900;
 
-        return $years_old ? $years_old : $year - $self->birth_year;
+        $years_now = $years_old ? $years_old : $year - $self->birth_year;
+        return $years_now;
     }
+
 
 
 }
