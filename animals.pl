@@ -32,6 +32,7 @@ use DDP;
 use Horse;
 use Cow;
 use Sheep;
+use Mouse;
 
 my $horse = Horse->new(name => 'Mr. Ed');
 $horse->color('grey');
@@ -44,3 +45,6 @@ my $baab = Sheep->new( color => 'white', name => 'Baab' );
 $baab->speak; # prints "Baab goes baaaah"
 $cow->speak; #
 say $baab->name , ' colored ', $baab->color;
+
+my $mickey = Mouse->new( name => 'Mickey' );
+$mickey->speak;
