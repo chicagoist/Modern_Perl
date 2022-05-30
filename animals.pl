@@ -33,9 +33,11 @@ use Horse;
 use Cow;
 use Sheep;
 use Mouse;
+use RaceHorse;
+use Modern::Perl '2015';
 
 my $horse = Horse->new(name => 'Mr. Ed');
-$horse->color('grey');
+$horse->_private_set_color('grey');
 
 say $horse->name, ' is colored ', $horse->color;
 $horse->speak;
@@ -48,3 +50,19 @@ say $baab->name , ' colored ', $baab->color;
 
 my $mickey = Mouse->new( name => 'Mickey' );
 $mickey->speak;
+
+my $s = RaceHorse->new( name => 'Seattle Slew' );
+$s->won;
+$s->won;
+$s->won;
+$s->placed;
+$s->lost;
+print $s->standings, "\n"; # 3 wins, 1 places, 0 shows, 1 losses
+say $s->fandango;
+
+if (RaceHorse->isa('Horse')) { # порожден ли класс Horse от класса Animal?
+ print "Класс RaceHorse порожден от класса Horse.\n";
+}
+
+say ref $s, " have - 'name'" if $s->can('name');
+say ref $mickey," have - 'fandango'" if $mickey->can('fandango');

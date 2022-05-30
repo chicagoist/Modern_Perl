@@ -1,7 +1,7 @@
-package Animal {
+package RaceHorse {
     use v5.10;
     use FindBin qw($Bin);
-    use lib "$Bin";# в подкаталоге
+    use lib "$Bin"; # в подкаталоге
     our $VERSION = '0.01';
     # use CGI;
     # use POSIX;
@@ -21,33 +21,18 @@ package Animal {
     binmode(STDIN, ':utf8');
     binmode(STDOUT, ':utf8');
     use Data::Dumper;
-    use Bundle::Camelcade;# for Intellij IDEA
+    use Bundle::Camelcade; # for Intellij IDEA
     use YAML;
     use DDP;
 
-    #use Moose;
-    use Moose::Role;
-    use Moose::Util::TypeConstraints;
+    use Moose;
     use namespace::autoclean;
 
-    requires qw(sound default_color);
-
-    enum 'ColorStr' => [qw( white brown black grey spotted)];
-
-    has 'name' => (is => 'rw');
-    has 'color' => (
-        is => 'ro',
-        isa => 'ColorStr',
-        writer => '_private_set_color',
-        default => sub { shift->default_color }
-    );
+    extends 'Horse';
+    with 'Racer';
 
 
 
-    sub speak {
-        my $self = shift;
-        print $self->name, " goes ", $self->sound, "\n";
-    }
-
-    }
+    __PACKAGE__->meta->make_immutable;
+}
 1;
