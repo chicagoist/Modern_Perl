@@ -53,9 +53,6 @@ package Cat {
     }
 
 
-
-
-
     with  'CalculateAge::From::BirthYear', 'LivingBeing';
     __PACKAGE__->meta->make_immutable;
 }
